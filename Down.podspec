@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-  spec.name         = "Down-gfm"
+  spec.name         = "Down"
   spec.summary      = "Blazing fast Markdown rendering in Swift, built upon cmark."
   spec.version      = "0.6.2"
   spec.homepage     = "https://github.com/iwasrobbed/Down"
