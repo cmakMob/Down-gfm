@@ -17,19 +17,19 @@ public typealias DownViewClosure = () -> ()
 
 open class DownView: WKWebView {
 
-    fileprivate var intrinsicContentHeight: CGFloat? {
-      didSet {
-        self.invalidateIntrinsicContentSize()
-      }
-    }
-    
-    open override var intrinsicContentSize: CGSize {
-      if let height = self.intrinsicContentHeight {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: height)
-      } else {
-        return CGSize.zero
-      }
-    }
+//    fileprivate var intrinsicContentHeight: CGFloat? {
+//      didSet {
+//        self.invalidateIntrinsicContentSize()
+//      }
+//    }
+//
+//    open override var intrinsicContentSize: CGSize {
+//      if let height = self.intrinsicContentHeight {
+//        return CGSize(width: UIViewNoIntrinsicMetric, height: height)
+//      } else {
+//        return CGSize.zero
+//      }
+//    }
     
     public var onRendered: ((CGFloat) -> Void)?
     
@@ -215,7 +215,7 @@ extension DownView {
 
           if let height = result as? CGFloat {
             self?.onRendered?(height)
-            self?.intrinsicContentHeight = height
+//            self?.intrinsicContentHeight = height
           }
         }
     }
