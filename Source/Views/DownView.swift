@@ -17,6 +17,13 @@ public typealias DownViewClosure = () -> ()
 
 open class DownView: WKWebView {
 
+    fileprivate var intrinsicContentHeight: CGFloat? {
+      didSet {
+        self.invalidateIntrinsicContentSize()
+      }
+    }
+    var onRendered: ((CGFloat) -> Void)?
+    
     /**
      Initializes a web view with the results of rendering a CommonMark Markdown string
 
@@ -186,7 +193,22 @@ extension DownView: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         didLoadSuccessfully?()
+        evaluate(webView: webView)
     }
     
+}
+
+extension DownView {
+    func evaluate(webView: WKWebView) {
+        let script = "document.body.scrollHeight;"
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+          if let _ = error { return }
+
+          if let height = result as? CGFloat {
+            self?.onRendered?(height)
+            self?.intrinsicContentHeight = height
+          }
+        }
+    }
 }
 #endif
